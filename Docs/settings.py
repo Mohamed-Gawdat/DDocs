@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from os import environ
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get('SECRET_KEY', '#Docs')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get('DEBUG', True)
+# DEBUG = environ.get('DEBUG', True)
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['DDocs.pythonanywhere.com']
 
 # Application definition
 
@@ -40,6 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # Or customize your toolbar layout
+        'stylesSet': 'default',
+        'extraAllowedContent': 'div(*)',  # Allow divs with any attributes
+        'extraPlugins': 'stylesheetparser',  # Ensure stylesheet is parsed
+
+        'extraPlugins': 'codesnippet',  # Add the codesnippet plugin for code blocks
+        'codeSnippet_theme': 'monokai_sublime',  # Choose a theme (can be changed)
+    }
+}
 
 EXTERNAL_APPS = [
     'accounts.apps.AccountsConfig',
@@ -131,7 +142,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# ORIGINAL###############################
 STATIC_URL = 'static/'
 if DEBUG:
     STATICFILES_DIRS = [
@@ -142,6 +153,8 @@ else:
 
 MEDIA_ROOT = BASE_DIR/'uploads/'
 MEDIA_URL = "uploads/"
+# ORIGINAL###############################
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -150,6 +163,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.User"
 
 GLOBAL_SETTINGS = {
-    "SITE_NAME": "Docs",
-    "SITE_URL": "http://localhost:8000"
+    "SITE_NAME": "D | Docs",
+    "SITE_URL": "https://ddocs.pythonanywhere.com"
 }

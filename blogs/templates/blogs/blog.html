@@ -10,23 +10,46 @@
 {% load static %}
 <div class="container mt-5 mb-5">
   <div class="row">
-    <h2>
+    <h2 class="Blog_Title">
       {{ blog.title }}
     </h2>
   </div>
-  <div class="row-blog-details">
-    <p>Author: {{ blog.creator }} | Views: {{ blog.views }} | Updated: {{ blog.published_on|timesince }} ago</p>
-  </div>
-  <div class="row mb-3">
-    {% for category in blog.categories.all %}
-      {% if category.is_active %}
-      <div class="col">
+  <!--<div class="row-blog-details">-->
+  <!--  <p>Author: {{ blog.creator }} | Views: {{ blog.views }} | Updated: {{ blog.published_on|timesince }} ago</p>-->
+  <!--</div>-->
+  <!--<div class="row mb-3">-->
+  <!--  {% for category in blog.categories.all %}-->
+  <!--    {% if category.is_active %}-->
+  <!--    <div class="col">-->
         <!-- <a type="button" href="{% url 'get_category' category.slug %}" class="btn btn-primary btn-sm ms-auto">{{ category.category }}</a> -->
-        <p>Category: <a type="button" href="{% url 'get_category' category.slug %}" class="Blog_Category">{{ category.category }}</a></p>
+  <!--      <p>Category: <a type="button" href="{% url 'get_category' category.slug %}" class="Blog_Category">{{ category.category }}</a></p>-->
+  <!--    </div>-->
+  <!--    {% endif %}-->
+  <!--  {% endfor %}-->
+  <!--</div>-->
+  <!---->
+   <!--  -->
+  <div class="row-blog-details">
+    <div class="blog-dtails-con">
+      <div class="row-blog-details-icons"><span class="category">
+        {% for category in blog.categories.all %}
+        {% if category.is_active %}<a type="button" href="{% url 'get_category' category.slug %}"
+          class="Blog_Category">{{category.category }}</a></span><i class="bi bi-collection"></i>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <i class="bi bi-chevron-right"></i>
+      <div class="row-blog-details-icons"><span class="author">{{ blog.creator }}</span><i class="bi bi-feather"></i>
+      </div><i class="bi bi-chevron-right"></i>
+      <div class="row-blog-details-icons"><span class="updated">{{ blog.published_on|timesince }} ago</span><i
+        class="bi bi-clock-history"></i></div>
+        <i class="bi bi-chevron-right"></i>
+        <div class="row-blog-details-icons"><span class="views">{{ blog.views }} Views</span><i class="bi bi-eye"></i>
       </div>
-      {% endif %}
-    {% endfor %}
+    </div>
   </div>
+<!--  -->
+  <!---->
   <div class="row">
     <div class="ratio ratio-16x9">
       <img src="{{ blog.thumbnail.url }}" class="img-fluid rounded mx-auto d-block" alt="blog's thumbnail">
@@ -82,7 +105,7 @@
     </div>
   </div>
   <br><br><hr>
-  
+
   <div class="row mb-3" id="comments">
     <h1>
       <i class="bi bi-chat-left-text"></i>
@@ -128,7 +151,7 @@
         {% endfor %}
         <form action="{% url 'blogs:create_reply' %}" method="post">
           {% csrf_token %}
-          <div class="row"> 
+          <div class="row">
             <input type="hidden" name="id" value="{{comment.id}}">
             <div class="col-10">
               <input type="text" class="form-control" name="reply" placeholder="Add a reply" required>
